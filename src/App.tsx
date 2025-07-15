@@ -1,4 +1,4 @@
-import { Box, Typography, Button, Paper, Stack, Fade } from '@mui/material';
+import { Box, Typography, Button, Paper, Stack, Fade, useTheme } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import ComputerIcon from '@mui/icons-material/Computer';
 import AppleIcon from '@mui/icons-material/Apple';
@@ -7,12 +7,128 @@ import { useState } from 'react';
 
 function App() {
   const [hover, setHover] = useState<string | null>(null);
+  const theme = useTheme();
+
+  // Cores customizadas
+  const mainGradient = 'linear-gradient(135deg, #4f8cff 0%, #6a82fb 100%)';
+  const macGradient = 'linear-gradient(135deg, #232526 0%, #414345 100%)';
+  const linuxGradient = 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)';
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 2 }}>
-      <Box sx={{ maxWidth: 700, mb: 6, color: 'text.primary' }}>
+    <Box sx={{ minHeight: '100vh', width: '100vw', display: 'flex', flexDirection: { xs: 'column', md: 'row' } }}>
+      {/* Coluna esquerda: Botões no topo e card resumido */}
+      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', p: { xs: 2, md: 6 }, bgcolor: 'white' }}>
+        {/* Botões de download no topo */}
+        <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }} width={{ xs: '100%', sm: 420 }} sx={{ mt: { xs: 2, md: 4 }, mb: 4 }} justifyContent="center">
+          <Button
+            variant="contained"
+            size="large"
+            startIcon={<ComputerIcon />}
+            endIcon={<DownloadIcon />}
+            href="/release/Orch-OS-Orch-OS-Windows-1.0.0.exe"
+            download
+            sx={{
+              fontWeight: 700,
+              px: 5,
+              py: 1.2,
+              minWidth: 160,
+              fontSize: '1.05rem',
+              background: mainGradient,
+              color: '#fff',
+              boxShadow: hover === 'win' ? 6 : 2,
+              transform: hover === 'win' ? 'scale(1.07)' : 'scale(1)',
+              transition: 'all 0.2s',
+              '&:hover': { background: mainGradient, filter: 'brightness(1.1)' },
+            }}
+            onMouseEnter={() => setHover('win')}
+            onMouseLeave={() => setHover(null)}
+            fullWidth
+          >
+            Windows
+          </Button>
+          <Button
+            variant="contained"
+            size="large"
+            startIcon={<AppleIcon />}
+            endIcon={<DownloadIcon />}
+            href="/release/Orch-OS-Orch-OS-macOS-1.0.0.dmg"
+            download
+            sx={{
+              fontWeight: 700,
+              px: 5,
+              py: 1.2,
+              minWidth: 160,
+              fontSize: '1.05rem',
+              background: macGradient,
+              color: '#fff',
+              boxShadow: hover === 'mac' ? 6 : 2,
+              transform: hover === 'mac' ? 'scale(1.07)' : 'scale(1)',
+              transition: 'all 0.2s',
+              '&:hover': { background: macGradient, filter: 'brightness(1.1)' },
+            }}
+            onMouseEnter={() => setHover('mac')}
+            onMouseLeave={() => setHover(null)}
+            fullWidth
+          >
+            macOS
+          </Button>
+          <Button
+            variant="contained"
+            size="large"
+            startIcon={<TerminalIcon />}
+            endIcon={<DownloadIcon />}
+            href="/release/Orch-OS-Orch-OS-Linux-1.0.0.AppImage"
+            download
+            sx={{
+              fontWeight: 700,
+              px: 5,
+              py: 1.2,
+              minWidth: 160,
+              fontSize: '1.05rem',
+              background: linuxGradient,
+              color: '#fff',
+              boxShadow: hover === 'linux' ? 6 : 2,
+              transform: hover === 'linux' ? 'scale(1.07)' : 'scale(1)',
+              transition: 'all 0.2s',
+              '&:hover': { background: linuxGradient, filter: 'brightness(1.1)' },
+            }}
+            onMouseEnter={() => setHover('linux')}
+            onMouseLeave={() => setHover(null)}
+            fullWidth
+          >
+            Linux
+          </Button>
+        </Stack>
+        {/* Card de informações resumidas */}
+        <Fade in timeout={800}>
+          <Paper elevation={6} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4, maxWidth: 420, width: '100%', mt: 2 }}>
+            <Stack spacing={2} alignItems="center">
+              <Typography variant="h3" component="h1" color="primary" fontWeight={700}>
+                Orch-OS
+              </Typography>
+              <Typography variant="body1" color="text.secondary" align="center">
+                Baixe o Orch-OS para o seu sistema operacional e experimente uma nova abordagem em inteligência artificial simbólica!
+              </Typography>
+            </Stack>
+          </Paper>
+        </Fade>
+      </Box>
+      {/* Coluna direita: Área cinza de informações detalhadas */}
+      <Box sx={{
+        width: { xs: '100%', md: 480 },
+        bgcolor: theme.palette.grey[100],
+        color: 'text.primary',
+        p: { xs: 3, md: 5 },
+        overflowY: 'auto',
+        borderLeft: { md: `1px solid ${theme.palette.divider}` },
+        minHeight: '100vh',
+        boxSizing: 'border-box',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+      }}>
         <Typography variant="h4" fontWeight={700} gutterBottom>
-          Orch-OS (Orchestrated Symbolism)
+          Sobre o Orch-OS
         </Typography>
         <Typography variant="body1" paragraph>
           Orch-OS (Orchestrated Symbolism) simula consciência por meio de colapsos simbólicos dentro de uma rede semântica estruturada. Diferente de sistemas tradicionais de IA focados em predição, o Orch-OS é construído para orquestrar significado, emoção, contradição e coerência narrativa através de núcleos cognitivos integrados.
@@ -86,91 +202,6 @@ function App() {
           <li>Decisão Não-determinística: Simula viés volitivo por modelagem de intenção</li>
         </ul>
       </Box>
-      <Fade in timeout={800}>
-        <Paper elevation={6} sx={{ p: 5, borderRadius: 4, maxWidth: 420, width: '100%' }}>
-          <Stack spacing={3} alignItems="center">
-            <Typography variant="h3" component="h1" color="primary" fontWeight={700}>
-              Orch-OS
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Bem-vindo ao site oficial de download do Orch-OS!
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Orch-OS é um aplicativo inovador para Windows, macOS e Linux, projetado para facilitar suas tarefas diárias.
-            </Typography>
-            <Stack spacing={2} direction="column" width="100%">
-              <Button
-                variant="contained"
-                size="large"
-                startIcon={<ComputerIcon />}
-                endIcon={<DownloadIcon />}
-                href="/release/Orch-OS-Orch-OS-Windows-1.0.0.exe"
-                download
-                sx={{
-                  fontWeight: 700,
-                  px: 4,
-                  py: 1.5,
-                  fontSize: '1.1rem',
-                  transition: 'transform 0.2s',
-                  transform: hover === 'win' ? 'scale(1.07)' : 'scale(1)',
-                  boxShadow: hover === 'win' ? 6 : 2,
-                }}
-                onMouseEnter={() => setHover('win')}
-                onMouseLeave={() => setHover(null)}
-                fullWidth
-              >
-                Baixar para Windows
-              </Button>
-              <Button
-                variant="contained"
-                color="secondary"
-                size="large"
-                startIcon={<AppleIcon />}
-                endIcon={<DownloadIcon />}
-                href="/release/Orch-OS-Orch-OS-macOS-1.0.0.dmg"
-                download
-                sx={{
-                  fontWeight: 700,
-                  px: 4,
-                  py: 1.5,
-                  fontSize: '1.1rem',
-                  transition: 'transform 0.2s',
-                  transform: hover === 'mac' ? 'scale(1.07)' : 'scale(1)',
-                  boxShadow: hover === 'mac' ? 6 : 2,
-                }}
-                onMouseEnter={() => setHover('mac')}
-                onMouseLeave={() => setHover(null)}
-                fullWidth
-              >
-                Baixar para macOS
-              </Button>
-              <Button
-                variant="contained"
-                color="success"
-                size="large"
-                startIcon={<TerminalIcon />}
-                endIcon={<DownloadIcon />}
-                href="/release/Orch-OS-Orch-OS-Linux-1.0.0.AppImage"
-                download
-                sx={{
-                  fontWeight: 700,
-                  px: 4,
-                  py: 1.5,
-                  fontSize: '1.1rem',
-                  transition: 'transform 0.2s',
-                  transform: hover === 'linux' ? 'scale(1.07)' : 'scale(1)',
-                  boxShadow: hover === 'linux' ? 6 : 2,
-                }}
-                onMouseEnter={() => setHover('linux')}
-                onMouseLeave={() => setHover(null)}
-                fullWidth
-              >
-                Baixar para Linux
-              </Button>
-            </Stack>
-          </Stack>
-        </Paper>
-      </Fade>
     </Box>
   );
 }
