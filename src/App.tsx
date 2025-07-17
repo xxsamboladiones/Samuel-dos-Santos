@@ -17,7 +17,7 @@ function App() {
   return (
     <Box sx={{ minHeight: '100vh', width: '100vw', bgcolor: '#181c24', display: 'flex', flexDirection: 'column', alignItems: 'center', py: { xs: 2, md: 6 }, px: 2 }}>
       {/* Botões de download no topo */}
-      <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }} width={{ xs: '100%', sm: 420 }} sx={{ mt: { xs: 2, md: 4 }, mb: 4 }} justifyContent="center">
+      <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }} width={{ xs: '100%', sm: 420 }} sx={{ mt: { xs: 2, md: 4 }, mb: 4 }} justifyContent="center" className="animate__animated animate__bounceIn">
         <Button
           variant="contained"
           size="large"
@@ -108,9 +108,9 @@ function App() {
           mb: 5,
           background: 'linear-gradient(135deg, #4f8cff 0%, #6a82fb 100%)',
           color: '#fff',
-        }}>
+        }} className="animate__animated animate__fadeInDown animate__delay-1s">
           <Stack spacing={2} alignItems="center">
-            <Typography variant="h3" component="h1" color="inherit" fontWeight={700}>
+            <Typography variant="h3" component="h1" color="inherit" fontWeight={700} className="animate__animated animate__tada animate__delay-2s">
               Orch-OS
             </Typography>
             <Typography variant="body1" color="inherit" align="center">
@@ -129,7 +129,7 @@ function App() {
         p: { xs: 3, md: 5 },
         mb: 6,
         color: '#fff',
-      }}>
+      }} className="animate__animated animate__fadeInUp animate__delay-2s">
         <Typography variant="h4" fontWeight={700} gutterBottom>
           Sobre o Orch-OS
         </Typography>
